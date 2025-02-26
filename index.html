@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محفظتي كمطور ألعاب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #009688;
+            --accent: #ff5722;
+            --light: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: var(--light);
+            color: var(--primary);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .lang-btn {
+            background: var(--secondary);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #009688, #00bcd4, #2196f3);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://particles.js.org/images/background.png') repeat;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .service-card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.6s ease;
+        }
+
+        .card-front {
+            transform: rotateY(0deg);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+        }
+
+        /* Portfolio Section */
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .social-icons a {
+            color: white;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: var(--primary);
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">محفظتي</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links">
+                <a href="#hero">الرئيسية</a>
+                <a href="#services">خدماتي</a>
+                <a href="#portfolio">أعمالي</a>
+                <a href="#contact">اتصل بي</a>
+            </div>
+            <button class="lang-btn" onclick="toggleLanguage()">English</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>مرحباً، أنا [اسمك]</h1>
+            <p>مطور ألعاب وتطبيقات ويب مع خبرة جيدة في تطوير الألعاب وبناء تطبيقات الويب الحديثة</p>
+            <a href="#portfolio" class="cta-btn">عرض أعمالي</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="card-front">
+                    <i class="fas fa-gamepad fa-3x mb-3"></i>
+                    <h3>تطوير الألعاب</h3>
+                </div>
+                <div class="card-back">
+                    <p>تطوير ألعاب ثنائية وثلاثية الأبعاد باستخدام Unity وUnreal Engine</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-front">
+                    <i class="fas fa-code fa-3x mb-3"></i>
+                    <h3>تطوير الويب</h3>
+                </div>
+                <div class="card-back">
+                    <p>بناء تطبيقات ويب تفاعلية باستخدام React.js وNode.js</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="card-front">
+                    <i class="fas fa-mobile-alt fa-3x mb-3"></i>
+                    <h3>تطبيقات الجوال</h3>
+                </div>
+                <div class="card-back">
+                    <p>تطوير تطبيقات أندرويد وiOS باستخدام React Native</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://via.placeholder.com/600x400" alt="مشروع لعبة">
+                <div class="overlay">
+                    <h4>لعبة حركة ثنائية الأبعاد</h4>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://via.placeholder.com/600x400" alt="تطبيق ويب">
+                <div class="overlay">
+                    <h4>منصة تعليمية تفاعلية</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-form">
+            <h2>اتصل بي</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" required placeholder=" ">
+                    <label for="name">الاسم</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" required placeholder=" ">
+                    <label for="email">البريد الإلكتروني</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="5" required placeholder=" "></textarea>
+                    <label for="message">الرسالة</label>
+                </div>
+                <button type="submit" class="cta-btn">إرسال</button>
+            </form>
+            <div id="successMessage" class="success-message">
+                <i class="fas fa-check-circle"></i> تم إرسال رسالتك بنجاح!
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:youremail@example.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>جميع الحقوق محفوظة &copy; 2023</p>
+    </footer>
+
+    <div id="scrollToTop"><i class="fas fa-arrow-up"></i></div>
+
+    <script>
+        // Language Toggle
+        function toggleLanguage() {
+            const elements = {
+                navLinks: document.querySelectorAll('.nav-links a'),
+                heroTitle: document.querySelector('.hero h1'),
+                heroSubtitle: document.querySelector('.hero p'),
+                servicesTitles: document.querySelectorAll('#services h3'),
+                portfolioTitle: document.querySelector('#portfolio h2'),
+                contactTitle: document.querySelector('#contact h2'),
+                formLabels: document.querySelectorAll('.form-group label'),
+                submitBtn: document.querySelector('.contact button'),
+                footer: document.querySelector('footer p'),
+                socialIcons: document.querySelectorAll('.social-icons a'),
+                langBtn: document.querySelector('.lang-btn')
+            };
+
+            const translations = {
+                en: {
+                    nav: ['Home', 'Services', 'Portfolio', 'Contact'],
+                    hero: {
+                        title: "Hello, I'm [Your Name]",
+                        subtitle: "Game Developer and Web Developer with good experience in game development and modern web applications"
+                    },
+                    services: ["Game Development", "Web Development", "Mobile Apps"],
+                    portfolio: "My Work",
+                    contact: "Contact Me",
+                    form: {
+                        name: "Name",
+                        email: "Email",
+                        message: "Message",
+                        submit: "Send"
+                    },
+                    footer: "All Rights Reserved © 2023",
+                    socialTooltips: ["GitHub", "Instagram", "Email"],
+                    langBtn: "العربية"
+                },
+                ar: {
+                    nav: ['الرئيسية', 'خدماتي', 'أعمالي', 'اتصل بي'],
+                    hero: {
+                        title: "مرحباً، أنا [اسمك]",
+                        subtitle: "مطور ألعاب وتطبيقات ويب مع خبرة جيدة في تطوير الألعاب وبناء تطبيقات الويب الحديثة"
+                    },
+                    services: ["تطوير الألعاب", "تطوير الويب", "تطبيقات الجوال"],
+                    portfolio: "أعمالي",
+                    contact: "اتصل بي",
+                    form: {
+                        name: "الاسم",
+                        email: "البريد الإلكتروني",
+                        message: "الرسالة",
+                        submit: "إرسال"
+                    },
+                    footer: "جميع الحقوق محفوظة © 2023",
+                    socialTooltips: ["GitHub", "إنستجرام", "البريد الإلكتروني"],
+                    langBtn: "English"
+                }
+            };
+
+            const currentLang = document.documentElement.lang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+
+            // Update navigation links
+            elements.navLinks.forEach((link, index) => {
+                link.textContent = translations[currentLang].nav[index];
+            });
+
+            // Update hero section
+            elements.heroTitle.textContent = translations[currentLang].hero.title;
+            elements.heroSubtitle.textContent = translations[currentLang].hero.subtitle;
+
+            // Update services titles
+            elements.servicesTitles.forEach((h3, index) => {
+                h3.textContent = translations[currentLang].services[index];
+            });
+
+            // Update portfolio title
+            elements.portfolioTitle.textContent = translations[currentLang].portfolio;
+
+            // Update contact section
+            elements.contactTitle.textContent = translations[currentLang].contact;
+            elements.formLabels.forEach((label, index) => {
+                label.textContent = translations[currentLang].form[['name', 'email', 'message'][index]];
+            });
+            elements.submitBtn.textContent = translations[currentLang].form.submit;
+
+            // Update footer
+            elements.footer.textContent = translations[currentLang].footer;
+
+            // Update social icons tooltips
+            elements.socialIcons.forEach((icon, index) => {
+                icon.setAttribute('title', translations[currentLang].socialTooltips[index]);
+            });
+
+            // Update language button text
+            elements.langBtn.textContent = translations[currentLang].langBtn;
+        }
+
+        // Mobile Menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Scroll to Top
+        const scrollToTop = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTop.style.display = 'flex';
+            } else {
+                scrollToTop.style.display = 'none';
+            }
+        });
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('successMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        });
+
+        // Particles Background
+        particlesJS.load('hero', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', function() {
+            particlesJS('hero', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 }},
+                    color: { value: "#ffffff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: false },
+                    move: { enable: true, speed: 2, direction: "none" }
+                },
+                interactivity: { detect_on: "canvas", events: { onhover: { enable: false }}},
+                retina_detect: true
+            });
+        });
+    </script>
+</body>
+</html>
