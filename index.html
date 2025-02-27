@@ -1,30 +1,65 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlElement">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>معاوية دحمان | مطور ويب والعاب</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+    </noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </noscript>
     <style>
         /* General Reset */
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-
+        
         body {
             font-family: 'Cairo', sans-serif;
-            direction: rtl;
-            text-align: right;
             line-height: 1.6;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: #fff;
             overflow-x: hidden;
         }
-
+        
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        body.ltr {
+            direction: ltr;
+            text-align: left;
+        }
+        
+        h2 {
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ffcc00;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: #ffcc00;
+        }
         /* Navigation Bar */
+        
         nav {
             display: flex;
             justify-content: space-between;
@@ -36,17 +71,17 @@
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
         }
-
+        
         nav .logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: #ffcc00;
         }
-
+        
         .menu-toggle {
             display: none;
         }
-
+        
         .menu-btn {
             background: #ffcc00;
             color: #1e3c72;
@@ -57,32 +92,59 @@
             cursor: pointer;
             transition: background 0.3s ease;
         }
-
+        
         .menu-btn:hover {
             background: #e6b800;
         }
-
+        
         .nav-links {
             list-style: none;
             display: flex;
             gap: 1.5rem;
         }
-
+        
         .nav-links a {
             text-decoration: none;
             color: #fff;
             font-size: 1rem;
             transition: color 0.3s ease;
         }
-
+        
         .nav-links a:hover {
             color: #ffcc00;
         }
-
+        /* Language Switcher */
+        
+        .language-switcher {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .language-btn {
+            background: transparent;
+            border: 2px solid #ffcc00;
+            color: #ffcc00;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .language-btn:hover {
+            background: rgba(255, 204, 0, 0.1);
+        }
+        
+        .language-btn i {
+            font-size: 0.8rem;
+        }
         /* Hero Section */
+        
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('hero-bg.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -92,29 +154,36 @@
             color: #fff;
             padding: 0 5%;
         }
-
+        
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             position: relative;
         }
-
+        
         .hero h1::after {
             content: ";";
             color: #ffcc00;
             font-size: 4rem;
             position: absolute;
-            right: -1.5rem;
             top: 50%;
             transform: translateY(-50%);
         }
-
+        
+        body.rtl .hero h1::after {
+            right: -1.5rem;
+        }
+        
+        body.ltr .hero h1::after {
+            left: -1.5rem;
+        }
+        
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
             color: #ffcc00;
         }
-
+        
         .hero .cta,
         .hero .resume-btn {
             display: inline-block;
@@ -126,300 +195,611 @@
             border-radius: 5px;
             transition: transform 0.3s ease, background 0.3s ease;
         }
-
+        
         .hero .cta {
             background: #ffcc00;
             color: #1e3c72;
         }
-
+        
         .hero .resume-btn {
             background: transparent;
             border: 2px solid #ffcc00;
             color: #ffcc00;
         }
-
+        
         .hero .cta:hover,
         .hero .resume-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-
         /* About Section */
+        
         .about {
-            padding: 4rem 5%;
+            padding: 5rem 5%;
             background: #1a1a1a;
         }
-
+        
         .about-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 2rem;
+            gap: 3rem;
+            margin-top: 3rem;
         }
-
+        
         .about img {
             width: 100%;
             height: 300px;
             object-fit: cover;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
         }
-
+        
+        .about img:hover {
+            transform: scale(1.05);
+        }
+        
         .bio {
             padding: 1rem;
         }
-
+        
+        .bio p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
         /* Skills Section */
+        
         .skills {
-            padding: 4rem 5%;
+            padding: 5rem 5%;
             background: #1e3c72;
         }
-
+        
         .skill-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
-
+        
         .skill-card {
             background: #1a1a1a;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
-
+        
         .skill-card:hover {
             transform: translateY(-10px);
         }
-
+        
         .skill-card h3 {
             color: #ffcc00;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            position: relative;
         }
-
+        
+        .skill-card h3::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background-color: #ffcc00;
+        }
+        
+        body.rtl .skill-card h3::after {
+            right: 0;
+        }
+        
+        body.ltr .skill-card h3::after {
+            left: 0;
+        }
+        
+        .skill-card ul {
+            list-style-type: none;
+        }
+        
+        body.rtl .skill-card ul {
+            padding-right: 1.2rem;
+        }
+        
+        body.ltr .skill-card ul {
+            padding-left: 1.2rem;
+        }
+        
+        .skill-card li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        .skill-card li::before {
+            content: "▹";
+            color: #ffcc00;
+            position: absolute;
+            font-size: 1.2rem;
+        }
+        
+        body.rtl .skill-card li::before {
+            right: -1.2rem;
+        }
+        
+        body.ltr .skill-card li::before {
+            left: -1.2rem;
+        }
         /* Projects Section */
+        
         .projects {
-            padding: 4rem 5%;
+            padding: 5rem 5%;
             background: #1a1a1a;
         }
-
+        
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
-
+        
         .project-card {
             background: #2d2d2d;
-            padding: 1rem;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-
+        
         .project-card:hover {
             transform: translateY(-10px);
         }
-
+        
         .project-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 5px;
+            transition: transform 0.5s ease;
         }
-
+        
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card h3 {
+            color: #ffcc00;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .project-card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+        
+        .project-links a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .project-links a:hover {
+            color: #ffcc00;
+        }
         /* Contact Section */
+        
         .contact {
-            padding: 4rem 5%;
+            padding: 5rem 5%;
             background: #1e3c72;
+            text-align: center;
         }
-
-        .contact form {
-            max-width: 600px;
-            margin: 0 auto;
+        
+        .social-icons {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
         }
-
-        .contact input,
-        .contact textarea {
-            width: 100%;
-            padding: 1rem;
-            margin: 1rem 0;
-            background: #2d2d2d;
-            border: none;
-            border-radius: 5px;
+        
+        .social-icons a {
+            color: #ffcc00;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-icons a:hover {
+            color: #1e3c72;
+            background: #ffcc00;
+            transform: translateY(-5px);
+        }
+        /* Footer */
+        
+        footer {
+            background: #1a1a1a;
+            padding: 2rem 5%;
+            text-align: center;
             color: #fff;
         }
-
-        .contact button {
+        
+        footer p {
+            margin-bottom: 1rem;
+        }
+        /* Back to top button */
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background: #ffcc00;
             color: #1e3c72;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: background 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
         }
-
-        .contact button:hover {
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
             background: #e6b800;
+            transform: translateY(-5px);
         }
-
         /* Responsive Design */
+        
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                background: #1e3c72;
+                background: rgba(30, 60, 114, 0.95);
                 padding: 1rem;
                 position: absolute;
                 top: 60px;
-                right: 0;
                 z-index: 100;
+                border-radius: 0 0 10px 10px;
             }
-
+            body.rtl .nav-links {
+                right: 0;
+            }
+            body.ltr .nav-links {
+                left: 0;
+            }
             .nav-links.active {
                 display: flex;
             }
-
             .menu-toggle {
                 display: block;
             }
-
+            .language-switcher {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
             .about-content {
                 grid-template-columns: 1fr;
             }
-                    /* قسم التواصل الاجتماعي */
-        .contact {
-            padding: 4rem 5%;
-            background: #1e3c72;
-            text-align: center;
-        }
-
-        .social-icons {
-            margin-top: 2rem;
-        }
-
-          .social-icons a {
-            color: #ffcc00;
-            margin: 0 1rem;
-            font-size: 2rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-             }
-
-             .social-icons a:hover {
-            color: #e6b800;
-            transform: scale(1.2);
-             }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .social-icons {
+                gap: 1rem;
+            }
+            .social-icons a {
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
-<body>
+
+<body class="rtl">
     <!-- شريط التنقل -->
     <nav>
-        <div class="logo">معاوية دحمان</div>
+        <div class="logo lang-ar">معاوية دحمان</div>
+        <div class="logo lang-en" style="display: none;">Moawia Dahman</div>
         <div class="menu-toggle">
-            <button class="menu-btn">☰ القائمة</button>
+            <button class="menu-btn" aria-label="Menu">
+                <span class="lang-ar">☰ القائمة</span>
+                <span class="lang-en" style="display: none;">☰ Menu</span>
+            </button>
         </div>
-        <ul class="nav-links">
-            <li><a href="#about">عني</a></li>
-            <li><a href="#skills">المهارات</a></li>
-            <li><a href="#projects">المشاريع</a></li>
-            <li><a href="#contact">اتصل بي</a></li>
-        </ul>
+        <div style="display: flex; align-items: center;">
+            <ul class="nav-links">
+                <li>
+                    <a href="#about" class="lang-ar">عني</a>
+                    <a href="#about" class="lang-en" style="display: none;">About</a>
+                </li>
+                <li>
+                    <a href="#skills" class="lang-ar">المهارات</a>
+                    <a href="#skills" class="lang-en" style="display: none;">Skills</a>
+                </li>
+                <li>
+                    <a href="#projects" class="lang-ar">المشاريع</a>
+                    <a href="#projects" class="lang-en" style="display: none;">Projects</a>
+                </li>
+                <li>
+                    <a href="#contact" class="lang-ar">اتصل بي</a>
+                    <a href="#contact" class="lang-en" style="display: none;">Contact</a>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <button class="language-btn" id="langToggle" aria-label="Switch Language">
+                    <span class="lang-ar">English</span>
+                    <span class="lang-en" style="display: none;">العربية</span>
+                    <i class="fas fa-globe"></i>
+                </button>
+            </div>
+        </div>
     </nav>
-
     <!-- القسم الرئيسي -->
     <section class="hero">
         <div class="hero-content">
-            <h1>مرحباً، أنا معاوية;</h1>
-            <p>مطور ويب و ألعاب باستخدام Unity و C#</p>
+            <h1 class="lang-ar">مرحباً، أنا معاوية;</h1>
+            <h1 class="lang-en" style="display: none;">Hi, I'm Moawia;</h1>
+            <p class="lang-ar">مطور ويب و ألعاب باستخدام Unity و C#</p>
+            <p class="lang-en" style="display: none;">Web & Game Developer using Unity and C#</p>
             <div class="buttons">
-                <a href="#projects" class="cta">عرض الأعمال</a>
-                <a href="cv.pdf" class="resume-btn">تحميل السيرة الذاتية</a>
+                <a href="#projects" class="cta">
+                    <span class="lang-ar">عرض الأعمال</span>
+                    <span class="lang-en" style="display: none;">View Projects</span>
+                </a>
+                <a href="cv.pdf" class="resume-btn" download>
+                    <span class="lang-ar">تحميل السيرة الذاتية</span>
+                    <span class="lang-en" style="display: none;">Download CV</span>
+                </a>
             </div>
         </div>
     </section>
-
     <!-- قسم عني -->
     <section id="about" class="about">
-        <h2>عني</h2>
+        <h2 class="lang-ar">عني</h2>
+        <h2 class="lang-en" style="display: none;">About Me</h2>
         <div class="about-content">
-            <img src="photo_2024-12-28_15-02-32.jpg" alt="صورة شخصية">
+            <img src="photo_2024-12-28_15-02-32.jpg" alt="Profile Photo">
             <div class="bio">
-                <p>مطور برمجيات متحمس مع خبرة 2 سنوات في تطوير الويب والألعاب</p>
-                <p>متخصص في تحويل الأفكار إلى تجارب تفاعلية مع الحفاظ على نظافة الكود وكفاءته</p>
+                <p class="lang-ar">مطور برمجيات متحمس مع خبرة 2 سنوات في تطوير الويب والألعاب</p>
+                <p class="lang-en" style="display: none;">An enthusiastic software developer with 2 years of experience in web and game development.</p>
+                <p class="lang-ar">متخصص في تحويل الأفكار إلى تجارب تفاعلية مع الحفاظ على نظافة الكود وكفاءته</p>
+                <p class="lang-en" style="display: none;">Specialized in transforming ideas into interactive experiences while maintaining clean and efficient code.</p>
+                <p class="lang-ar">أسعى دائماً لتعلم تقنيات جديدة وتطوير مهاراتي لإنشاء تجارب مستخدم استثنائية ومبتكرة.</p>
+                <p class="lang-en" style="display: none;">I am constantly seeking to learn new technologies and enhance my skills to create exceptional and innovative user experiences.</p>
             </div>
         </div>
     </section>
-
     <!-- قسم المهارات -->
     <section id="skills" class="skills">
-        <h2>المهارات</h2>
+        <h2 class="lang-ar">المهارات</h2>
+        <h2 class="lang-en" style="display: none;">Skills</h2>
         <div class="skill-grid">
             <div class="skill-card">
-                <h3>تطوير الويب</h3>
+                <h3 class="lang-ar">تطوير الويب</h3>
+                <h3 class="lang-en" style="display: none;">Web Development</h3>
                 <ul>
                     <li>HTML/CSS</li>
                     <li>JavaScript</li>
                     <li>React</li>
+                    <li>Node.js</li>
+                    <li>Responsive Design</li>
                 </ul>
             </div>
             <div class="skill-card">
-                <h3>تطوير الألعاب</h3>
+                <h3 class="lang-ar">تطوير الألعاب</h3>
+                <h3 class="lang-en" style="display: none;">Game Development</h3>
                 <ul>
                     <li>Unity</li>
                     <li>C#</li>
-                    <li>تصميم الألعاب 2D/3D</li>
+                    <li class="lang-ar">تصميم الألعاب 2D/3D</li>
+                    <li class="lang-en" style="display: none;">2D/3D Game Design</li>
+                    <li class="lang-ar">محركات الفيزياء</li>
+                    <li class="lang-en" style="display: none;">Physics Engines</li>
+                    <li class="lang-ar">برمجة الذكاء الاصطناعي للألعاب</li>
+                    <li class="lang-en" style="display: none;">Game AI Programming</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3 class="lang-ar">أدوات ومهارات أخرى</h3>
+                <h3 class="lang-en" style="display: none;">Tools & Other Skills</h3>
+                <ul>
+                    <li>Git</li>
+                    <li class="lang-ar">تصميم واجهة المستخدم</li>
+                    <li class="lang-en" style="display: none;">UI/UX Design</li>
+                    <li class="lang-ar">إدارة المشاريع</li>
+                    <li class="lang-en" style="display: none;">Project Management</li>
+                    <li class="lang-ar">حل المشكلات</li>
+                    <li class="lang-en" style="display: none;">Problem Solving</li>
                 </ul>
             </div>
         </div>
     </section>
-
     <!-- قسم المشاريع -->
     <section id="projects" class="projects">
-        <h2>المشاريع</h2>
+        <h2 class="lang-ar">المشاريع</h2>
+        <h2 class="lang-en" style="display: none;">Projects</h2>
         <div class="project-grid">
             <div class="project-card">
-                <img src="project1.jpg" alt="مشروع 1">
-                <h3> Full Team Task And Project Managment | إدارة للمهام والمشاريع</h3>
-                <p>إدارة كاملة للمهام والمشاريع بطريقة رائعة | Full management of tasks and projects in a wonderful way</p>
+                <img src="project1.jpg" alt="Project 1">
+                <div class="project-content">
+                    <h3 class="lang-ar">إدارة للمهام والمشاريع</h3>
+                    <h3 class="lang-en" style="display: none;">Team Task & Project Management</h3>
+                    <p class="lang-ar">إدارة كاملة للمهام والمشاريع بطريقة رائعة مع إمكانيات متقدمة لتتبع الأداء وإنشاء التقارير</p>
+                    <p class="lang-en" style="display: none;">Complete management of tasks and projects in an excellent way with advanced performance tracking and reporting capabilities.</p>
+                    <div class="project-links">
+                        <a href="#" class="lang-ar"><i class="fas fa-external-link-alt"></i> معاينة</a>
+                        <a href="#" class="lang-en" style="display: none;"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="https://github.com/RAHALGG/Task-Manager" target="_blank" class="lang-ar"><i class="fab fa-github"></i> كود المشروع</a>
+                        <a href="https://github.com/RAHALGG/Task-Manager" target="_blank" class="lang-en" style="display: none;"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                </div>
             </div>
             <div class="project-card">
-                <img src="project2.jpg" alt="مشروع 2">
-                <h3>رحلة دمية : شيء مفقود | Doll's Journey : Something Lost</h3>
-                <p>An Souls Like Game but With Arabian Touch And World With Amazing Story | لعبة (Souls Like) ولكن مع لمسة عربية وعالم عربي مع قصة مذهلة</p>
+                <img src="project2.jpg" alt="Project 2">
+                <div class="project-content">
+                    <h3 class="lang-ar">رحلة دمية : شيء مفقود</h3>
+                    <h3 class="lang-en" style="display: none;">Doll's Journey: Something Lost</h3>
+                    <p class="lang-ar">لعبة (Souls Like) ولكن مع لمسة عربية وعالم عربي مع قصة مذهلة ونظام قتال متقدم وتصميم مستويات فريد</p>
+                    <p class="lang-en" style="display: none;">A Souls-like game with an Arabian touch and world, featuring an amazing story, advanced combat system, and unique level design.</p>
+                    <div class="project-links">
+                        <a href="#" class="lang-ar"><i class="fas fa-gamepad"></i> تجربة اللعبة</a>
+                        <a href="#" class="lang-en" style="display: none;"><i class="fas fa-gamepad"></i> Play Game</a>
+                        <a href="#" class="lang-ar"><i class="fas fa-film"></i> عرض الفيديو</a>
+                        <a href="#" class="lang-en" style="display: none;"><i class="fas fa-film"></i> Watch Trailer</a>
+                    </div>
+                </div>
             </div>
+            <!-- <div class="project-card">
+                <img src="project3.jpg" alt="Project 3">
+                <div class="project-content">
+                    <h3 class="lang-ar">تطبيق تعلم اللغة العربية</h3>
+                    <h3 class="lang-en" style="display: none;">Arabic Language Learning App</h3>
+                    <p class="lang-ar">تطبيق تفاعلي لتعلم اللغة العربية مع تمارين صوتية وكتابية وألعاب تعليمية ممتعة</p>
+                    <p class="lang-en" style="display: none;">An interactive app for learning Arabic with audio and writing exercises and fun educational games.</p>
+                    <div class="project-links">
+                        <a href="#" class="lang-ar"><i class="fas fa-mobile-alt"></i> تحميل التطبيق</a>
+                        <a href="#" class="lang-en" style="display: none;"><i class="fas fa-mobile-alt"></i> Download App</a>
+                        <a href="#" class="lang-ar"><i class="fas fa-info-circle"></i> المزيد من المعلومات</a>
+                        <a href="#" class="lang-en" style="display: none;"><i class="fas fa-info-circle"></i> More Info</a>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </section>
-
-<!-- قسم التواصل الاجتماعي -->
-<section id="contact" class="contact">
-    <h2>تواصل معي</h2>
-    <div class="social-icons">
-        <a href="https://github.com/RAHALGG" target="_blank">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="mailto:kingmaa112233@gmail.com">
-            <i class="fas fa-envelope"></i>
-        </a>
-        <a href="https://instagram.com/rahal_dev_art" target="_blank">
-            <i class="fab fa-instagram"></i>
-        </a>
+    <!-- قسم التواصل الاجتماعي -->
+    <section id="contact" class="contact">
+        <h2 class="lang-ar">تواصل معي</h2>
+        <h2 class="lang-en" style="display: none;">Contact Me</h2>
+        <div class="social-icons">
+            <a href="https://github.com/RAHALGG" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:kingmaa112233@gmail.com" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://instagram.com/rahal_dev_art" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </section>
+    <!-- زر العودة للأعلى -->
+    <div class="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
     </div>
-</section>
-
+    <!-- Footer -->
+    <footer>
+        <p class="lang-ar">© جميع الحقوق محفوظة 2025 - معاوية دحمان</p>
+        <p class="lang-en" style="display: none;">© All Rights Reserved 2025 - Moawia Dahman</p>
+    </footer>
     <script>
-        // Burger Menu Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu Toggle
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            // Close menu when clicking on a link
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            // Back to top button
+            const backToTopBtn = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            // Language switcher
+            const langToggle = document.getElementById('langToggle');
+            const htmlElement = document.getElementById('htmlElement');
+            const body = document.body;
+            const arElements = document.querySelectorAll('.lang-ar');
+            const enElements = document.querySelectorAll('.lang-en');
+            langToggle.addEventListener('click', () => {
+                if (body.classList.contains('rtl')) {
+                    // Switch to English
+                    body.classList.remove('rtl');
+                    body.classList.add('ltr');
+                    htmlElement.setAttribute('lang', 'en');
+                    htmlElement.setAttribute('dir', 'ltr');
+                    // Hide Arabic elements, show English elements
+                    arElements.forEach(el => el.style.display = 'none');
+                    enElements.forEach(el => el.style.display = 'block');
+                } else {
+                    // Switch to Arabic
+                    body.classList.remove('ltr');
+                    body.classList.add('rtl');
+                    htmlElement.setAttribute('lang', 'ar');
+                    htmlElement.setAttribute('dir', 'rtl');
+                    // Hide English elements, show Arabic elements
+                    enElements.forEach(el => el.style.display = 'none');
+                    arElements.forEach(el => el.style.display = 'block');
+                }
+            });
         });
     </script>
 </body>
+
 </html>
+ 
